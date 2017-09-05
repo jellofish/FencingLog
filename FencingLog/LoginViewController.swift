@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import SwiftValidator
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
    
@@ -21,12 +22,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    let validator = Validator()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userName.delegate = self
         userPassword.delegate = self
         
+        validator.registerField(userName, errorLabel: nameErrorLabel, rules: [RequiredRule(), EmailRule(message: "Invalid email")])
+        
+        validator.registerField(userPassword, errorLabel: passwordErrorLabel, rules: [RequiredRule(), MinLengthRule(length: 5)])
     }
     
     override func didReceiveMemoryWarning() {
@@ -102,7 +109,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-// MARK: - UITextFiedlDelegate methods
+// MARK: - UITextFieldDelegate methods
 extension LoginViewController {
-
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        validator.validateField(textField, callback: { (error) in
+            textField.layer.borderColor = UIColor.red.cgColor
+            textField.layer.borderWidth = 1.0
+            
+            if let error = error {
+                error.errorLabel?.text = error.errorMessage // works if you added labels
+                error.errorLabel?.isHidden = false
+            } else {
+                textField.layer.borderWidth = 0.0
+            }
+        })
+    }
 }

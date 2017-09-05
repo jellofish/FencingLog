@@ -49,13 +49,13 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nnd-fr-kbj">
-                                <rect key="frame" x="16" y="274.5" width="107" height="21"/>
+                                <rect key="frame" x="16" y="254.5" width="107" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5EL-B4-Jxi">
-                                <rect key="frame" x="139" y="269.5" width="220" height="30"/>
+                                <rect key="frame" x="139" y="249.5" width="220" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
@@ -69,14 +69,14 @@
                                     <segue destination="wJM-BG-yJw" kind="show" identifier="PasswordResetSegue" id="y61-ll-T7O"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1x-pm-7Ix">
-                                <rect key="frame" x="16" y="231" width="343" height="19.5"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1x-pm-7Ix">
+                                <rect key="frame" x="139" y="231" width="220" height="0.0"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" red="0.58823529409999997" green="0.0" blue="0.28235294119999998" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiG-0e-dao">
-                                <rect key="frame" x="16" y="307.5" width="343" height="19.5"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiG-0e-dao">
+                                <rect key="frame" x="139" y="288" width="220" height="0.0"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" red="0.58823529409999997" green="0.0" blue="0.28235294119999998" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -99,11 +99,11 @@
                             <constraint firstItem="Nnd-fr-kbj" firstAttribute="centerY" secondItem="5EL-B4-Jxi" secondAttribute="centerY" id="5wV-QV-y51"/>
                             <constraint firstItem="Bns-1U-iZG" firstAttribute="leading" secondItem="3h7-Tx-063" secondAttribute="trailing" constant="16" id="8S4-aL-luO"/>
                             <constraint firstItem="IL2-AT-B6Q" firstAttribute="centerX" secondItem="XUV-Kv-eoS" secondAttribute="centerX" id="A38-lK-oTS"/>
-                            <constraint firstItem="3h7-Tx-063" firstAttribute="leading" secondItem="T1x-pm-7Ix" secondAttribute="leading" id="BtY-Wg-a6r"/>
+                            <constraint firstItem="3h7-Tx-063" firstAttribute="leading" secondItem="T1x-pm-7Ix" secondAttribute="leading" constant="-123" id="BtY-Wg-a6r"/>
                             <constraint firstItem="3h7-Tx-063" firstAttribute="centerY" secondItem="Bns-1U-iZG" secondAttribute="centerY" id="DG5-h1-LKR"/>
                             <constraint firstItem="Bns-1U-iZG" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DTM-X6-orD"/>
                             <constraint firstItem="c2b-uh-ocl" firstAttribute="top" secondItem="XUV-Kv-eoS" secondAttribute="bottom" constant="16" id="DdV-zK-RyK"/>
-                            <constraint firstItem="T1x-pm-7Ix" firstAttribute="leading" secondItem="Nnd-fr-kbj" secondAttribute="leading" id="DuV-PI-Veb"/>
+                            <constraint firstItem="T1x-pm-7Ix" firstAttribute="leading" secondItem="Nnd-fr-kbj" secondAttribute="leading" constant="123" id="DuV-PI-Veb"/>
                             <constraint firstItem="Bns-1U-iZG" firstAttribute="trailing" secondItem="T1x-pm-7Ix" secondAttribute="trailing" id="DwT-xC-kg7"/>
                             <constraint firstItem="Bns-1U-iZG" firstAttribute="leading" secondItem="5EL-B4-Jxi" secondAttribute="leading" id="KBg-bQ-cGy"/>
                             <constraint firstItem="3h7-Tx-063" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="M0e-Pu-yAd"/>
@@ -113,7 +113,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="XUV-Kv-eoS" secondAttribute="trailing" constant="50" id="UGW-p7-P5E"/>
                             <constraint firstItem="XUV-Kv-eoS" firstAttribute="leading" secondItem="c2b-uh-ocl" secondAttribute="leading" id="Um1-Kr-N4p"/>
                             <constraint firstItem="Bns-1U-iZG" firstAttribute="top" secondItem="IL2-AT-B6Q" secondAttribute="bottom" constant="25" id="a6T-Ko-rc1"/>
-                            <constraint firstItem="Nnd-fr-kbj" firstAttribute="leading" secondItem="hiG-0e-dao" secondAttribute="leading" id="cQE-Jr-K3r"/>
+                            <constraint firstItem="Nnd-fr-kbj" firstAttribute="leading" secondItem="hiG-0e-dao" secondAttribute="leading" constant="-123" id="cQE-Jr-K3r"/>
                             <constraint firstItem="c2b-uh-ocl" firstAttribute="trailing" secondItem="7Vq-ZX-Ray" secondAttribute="trailing" id="eRe-y9-jXP"/>
                             <constraint firstItem="T1x-pm-7Ix" firstAttribute="trailing" secondItem="5EL-B4-Jxi" secondAttribute="trailing" id="hgl-2b-oND"/>
                             <constraint firstItem="hiG-0e-dao" firstAttribute="top" secondItem="5EL-B4-Jxi" secondAttribute="bottom" constant="8" symbolic="YES" id="n8p-Bx-4Vu"/>
@@ -350,18 +350,18 @@
                                         <rect key="frame" x="0.0" y="10" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ON5-az-kpU" id="FIa-Eu-dVl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ie4-KG-riX">
-                                                    <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4MO-0H-hJP">
-                                                    <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>

@@ -8,9 +8,9 @@
 
 import UIKit
 import Firebase
+import SwiftValidator
 
-
-class BoutViewController: UIViewController, UITextFieldDelegate {
+class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDelegate, UISearchResultsUpdating {
     
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var weaponSegmentedControl: UISegmentedControl!
@@ -26,9 +26,11 @@ class BoutViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var trayView: UIView!
+    
+    let searchController = UISearchController(searchResultsController: nil)
 
     let myFormatter = DateFormatter()
-//    let validator = Validator()
+    let validator = Validator()
     
     var forEditing = false
     var saveEnabled = false
@@ -51,6 +53,11 @@ class BoutViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         myFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        
+        validator.registerField(locationTextField, rules: [RequiredRule()])
+        validator.registerField(opponentTextField, rules: [RequiredRule()])
+        validator.registerField(scoreRightTextField, rules: [RequiredRule()])
+        validator.registerField(scoreLeftTextField, rules: [RequiredRule()])
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,6 +84,7 @@ class BoutViewController: UIViewController, UITextFieldDelegate {
 
 
     }
+    
     
     func readValues() {
         if let thisBout = thisBout {
@@ -153,6 +161,12 @@ class BoutViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func doSaveBout(_ sender: Any) {
+        validator.validate({(errors) in
+            if errors.count > 0 {
+                return
+            }
+        })
+        
         activityIndicator.startAnimating()
         
         self.saveButton.isHidden = true
@@ -321,6 +335,29 @@ extension BoutViewController {
     @IBAction func changedData(_ sender: Any) {
         saveEnabled = true
         saveButton.isEnabled = true
+    }
+}
+
+// MARK: - ValidationDelegate methods
+extension BoutViewController {
+    func validationSuccessful() {
+        // good to go
+        return
+    }
+    
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
+        // errors found
+        for error in errors {
+            let field = error.0 as! UITextField
+            field.layer.borderWidth = 0.0
+        }
+    }
+}
+
+//MARK: - UISearchResults
+extension BoutViewController {
+    func updateSearchResults(for searchController: UISearchController) {
+        
     }
 }
 
