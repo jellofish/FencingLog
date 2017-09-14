@@ -42,10 +42,14 @@ class BoutListViewController: UIViewController, UITableViewDelegate, UITableView
 
             // Get bout data
             let boutSnapshot = snapshot.childSnapshot(forPath: "bouts")
+            let currentUser = Auth.auth().currentUser?.uid
             
             for child in boutSnapshot.children {
                 if let bout = Bout(snapshot: child as! DataSnapshot) {
-                    self.addOrUpdateBout(bout)
+                    // Only show bouts the current user fenced in!
+                    if bout.opponents.0 == currentUser || bout.opponents.1 == currentUser{
+                        self.addOrUpdateBout(bout)
+                    }
                 }
             }
             
@@ -165,7 +169,7 @@ extension BoutListViewController {
             if let firstFencer = findFencer(bout.opponents.0),
                 let secondFencer = findFencer(bout.opponents.1) {
         
-                cell.textLabel?.text = "\(firstFencer.firstName) (\(bout.scores.0)) vs. \(secondFencer.firstName) (\(bout.scores.1))"
+                cell.textLabel?.text = "\(firstFencer.displayName()) (\(bout.scores.0)) vs. \(secondFencer.displayName()) (\(bout.scores.1))"
                 if let date = bout.dateTime {
                     let boutDateString = myFormatter.string(from: date)
                     cell.detailTextLabel?.text = "\(bout.location!) \(boutDateString)"

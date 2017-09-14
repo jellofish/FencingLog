@@ -46,6 +46,15 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                     }))
                     
                     self.present(alert, animated: true, completion: nil)
+                } else {
+                    guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FencerProfileViewController") as? FencerProfileViewController else {
+                        print("Could not instantiate FencerProfileViewController")
+                        return
+                    }
+                    
+                    vc.email = userName
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         }

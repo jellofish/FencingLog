@@ -21,10 +21,11 @@ class Fencer: NSObject {
     var weapons: Array<Weapon>
     var club: String?
     var primaryLocation: String?
+    var placeHolderOwner: String?
     
     let formatter = DateFormatter()
     
-    init(fencerId: String, firstName: String, lastName: String, email: String, dateOfBirth: Date, rightHanded: Bool, weapons: Array<Weapon>, club: String, primaryLocation: String) {
+    init(fencerId: String, firstName: String, lastName: String, email: String, dateOfBirth: Date, rightHanded: Bool, weapons: Array<Weapon>, club: String, primaryLocation: String, placeHolderOwner: String) {
         self.fencerId = fencerId
         self.firstName = firstName
         self.lastName = lastName
@@ -34,6 +35,7 @@ class Fencer: NSObject {
         self.weapons = weapons
         self.club = club
         self.primaryLocation = primaryLocation
+        self.placeHolderOwner = placeHolderOwner
     }
     
     init?(snapshot: DataSnapshot) {
@@ -69,6 +71,7 @@ class Fencer: NSObject {
         // Optional data
         self.club = dict["club"] as? String
         self.primaryLocation = dict["primaryLocation"] as? String
+        self.placeHolderOwner = dict["placeHolderOwner"] as? String
         
         if let rightHanded = dict["rightHanded"] as? String {
             self.rightHanded = Bool(rightHanded)!
@@ -81,5 +84,23 @@ class Fencer: NSObject {
         } else {
             self.dateOfBirth = nil
         }
+    }
+    
+    public func displayName() -> String {
+        var displayName = ""
+        
+        if !firstName.isEmpty {
+            displayName.append(firstName)
+        }
+        
+        if !lastName.isEmpty {
+            if !displayName.isEmpty {
+                displayName.append(" ")
+            }
+            
+            displayName.append(lastName)
+        }
+        
+        return displayName
     }
 }

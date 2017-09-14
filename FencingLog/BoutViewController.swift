@@ -10,13 +10,14 @@ import UIKit
 import Firebase
 import SwiftValidator
 
-class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDelegate, UISearchResultsUpdating {
+class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDelegate, FencerSearchListDelegate {
     
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var weaponSegmentedControl: UISegmentedControl!
     @IBOutlet weak var dateTextButton: UIButton!
     @IBOutlet weak var dateTimePicker: UIDatePicker!
     @IBOutlet weak var opponentTextField: UITextField!
+    @IBOutlet weak var opponentButton: UIButton!
     @IBOutlet weak var scoreRightTextField: UITextField!
     @IBOutlet weak var scoreLeftTextField: UITextField!
     @IBOutlet weak var winnerLabel: UILabel!
@@ -27,13 +28,12 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var trayView: UIView!
     
-    let searchController = UISearchController(searchResultsController: nil)
 
     let myFormatter = DateFormatter()
     let validator = Validator()
     
     var forEditing = false
-    var saveEnabled = false
+    var saveEnabled = true //false
     var thisBout: Bout?
     
     var weapon: Weapon?
@@ -45,6 +45,7 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
     var boutDateTime: String?
     
     var fencerArray = Array<Fencer>()
+    var filteredFencerArray = Array<Fencer>()
     var ref: DatabaseReference!
     var refFencerHandle: DatabaseHandle!
     
@@ -77,7 +78,7 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
             }
             
             self.readValues()
-            self.configureFieldsForEditState() 
+            self.configureFieldsForEditState()
             
          })
         
@@ -101,9 +102,14 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
                 weaponSegmentedControl.selectedSegmentIndex = 3
             }
             
-            let opponent = findFencer(thisBout.opponents.1)
-            opponentTextField?.text = opponent!.firstName
-            
+            if let opponent = findFencer(thisBout.opponents.1) {
+                let nameString = opponent.displayName()
+                opponentTextField?.text = nameString
+                opponentButton.setTitle(nameString, for: UIControlState.normal)
+            } else {
+                opponentTextField?.text = ""
+                opponentButton.setTitle("Select opponent", for: UIControlState.normal)
+            }
             
             scoreLeftTextField?.text = String(describing: thisBout.scores.0)
             scoreRightTextField?.text = String(describing: thisBout.scores.1)
@@ -134,18 +140,12 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
     }
     
     func configureFieldsForEditState() {
-        locationTextField.isUserInteractionEnabled = forEditing
-        dateTextButton.isUserInteractionEnabled = forEditing
-        weaponSegmentedControl.isUserInteractionEnabled = forEditing
-        opponentTextField.isUserInteractionEnabled = forEditing
-        scoreLeftTextField.isUserInteractionEnabled = forEditing
-        scoreRightTextField.isUserInteractionEnabled = forEditing
-        winnerSwitchControl.isUserInteractionEnabled = forEditing
         notesTextView.isUserInteractionEnabled = forEditing
         
         locationTextField.isEnabled = forEditing
         weaponSegmentedControl.isEnabled = forEditing
         opponentTextField.isEnabled = forEditing
+        opponentButton.isEnabled = forEditing
         scoreLeftTextField.isEnabled = forEditing
         scoreRightTextField.isEnabled = forEditing
         winnerSwitchControl.isEnabled = forEditing
@@ -154,7 +154,7 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
         saveButton.isHidden = !forEditing
         editButton.isHidden = forEditing
     }
-    
+
     @IBAction func doEditBout(_ sender: Any) {
         self.forEditing = true
         configureFieldsForEditState()
@@ -194,17 +194,18 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
         
         location = locationTextField.text
         
-        
-        if let opponentName = opponentTextField.text {
-            let idArray = findFencerId(opponentName)
-            
-            if idArray.count > 0 {
-                opponentId = idArray[0]
+        if opponentId == nil {
+            if let opponentName = opponentTextField.text {
+                let idArray = findFencerId(opponentName)
+                
+                if idArray.count > 0 {
+                    opponentId = idArray[0]
+                } else {
+                    opponentId = "<unknown>"
+                }
             } else {
                 opponentId = "<unknown>"
             }
-        } else {
-            opponentId = "<unknown>"
         }
         
         if let right = Int(scoreRightTextField.text!), let left = Int(scoreLeftTextField.text!) {
@@ -237,6 +238,15 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
+
+    @IBAction func selectOpponent(_ sender: Any?) {
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "FencerSearchListViewController") as? FencerSearchListViewController {
+            vc.delegate = self
+            vc.currentOpponentId = opponentId
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 
@@ -331,7 +341,7 @@ extension BoutViewController {
 
 // MARK: - @IBActions
 extension BoutViewController {
-    
+
     @IBAction func changedData(_ sender: Any) {
         saveEnabled = true
         saveButton.isEnabled = true
@@ -354,10 +364,15 @@ extension BoutViewController {
     }
 }
 
-//MARK: - UISearchResults
+//MARK: - FencerSearch delegate
 extension BoutViewController {
-    func updateSearchResults(for searchController: UISearchController) {
-        
+    func assignOpponent(_ fencer: Fencer) {
+        opponentId = fencer.fencerId
+        let fencerName = fencer.displayName()
+        opponentTextField?.text = fencerName
+        opponentButton.setTitle(fencerName, for: .normal)
     }
 }
+
+
 

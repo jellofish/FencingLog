@@ -20,7 +20,10 @@
 		2A0DA3BD1F3CF913005F7F21 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DA3BC1F3CF913005F7F21 /* CreateAccountViewController.swift */; };
 		2A0DA3BF1F3CFB26005F7F21 /* BoutListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DA3BE1F3CFB26005F7F21 /* BoutListViewController.swift */; };
 		2A0DA3C11F3D0911005F7F21 /* BoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0DA3C01F3D0911005F7F21 /* BoutViewController.swift */; };
+		2A6B1D121F63491C005EF7EA /* OpponentProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6B1D111F63491C005EF7EA /* OpponentProfileViewController.swift */; };
 		2A9A3D761F5851F800FE9FF2 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9A3D751F5851F800FE9FF2 /* PasswordResetViewController.swift */; };
+		2AF1E4BE1F5F9235009C98B3 /* FencerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1E4BD1F5F9235009C98B3 /* FencerListViewController.swift */; };
+		2AF1E4C01F6043FF009C98B3 /* FencerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1E4BF1F6043FF009C98B3 /* FencerProfileViewController.swift */; };
 		9080E87DCC1BCD205A60DD14 /* Pods_FencingLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44B18ED5286B4F89BA456D4C /* Pods_FencingLog.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +44,10 @@
 		2A0DA3BC1F3CF913005F7F21 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		2A0DA3BE1F3CFB26005F7F21 /* BoutListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoutListViewController.swift; sourceTree = "<group>"; };
 		2A0DA3C01F3D0911005F7F21 /* BoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoutViewController.swift; sourceTree = "<group>"; };
+		2A6B1D111F63491C005EF7EA /* OpponentProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpponentProfileViewController.swift; sourceTree = "<group>"; };
 		2A9A3D751F5851F800FE9FF2 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
+		2AF1E4BD1F5F9235009C98B3 /* FencerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FencerListViewController.swift; sourceTree = "<group>"; };
+		2AF1E4BF1F6043FF009C98B3 /* FencerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FencerProfileViewController.swift; sourceTree = "<group>"; };
 		44B18ED5286B4F89BA456D4C /* Pods_FencingLog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FencingLog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1BAC7742A689B52016AA0B4 /* Pods-FencingLog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FencingLog.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FencingLog/Pods-FencingLog.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,6 +107,9 @@
 				2A0DA3BC1F3CF913005F7F21 /* CreateAccountViewController.swift */,
 				2A0DA3BE1F3CFB26005F7F21 /* BoutListViewController.swift */,
 				2A0DA3C01F3D0911005F7F21 /* BoutViewController.swift */,
+				2AF1E4BD1F5F9235009C98B3 /* FencerListViewController.swift */,
+				2AF1E4BF1F6043FF009C98B3 /* FencerProfileViewController.swift */,
+				2A6B1D111F63491C005EF7EA /* OpponentProfileViewController.swift */,
 			);
 			path = FencingLog;
 			sourceTree = "<group>";
@@ -249,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A0DA3BD1F3CF913005F7F21 /* CreateAccountViewController.swift in Sources */,
+				2AF1E4BE1F5F9235009C98B3 /* FencerListViewController.swift in Sources */,
 				2A9A3D761F5851F800FE9FF2 /* PasswordResetViewController.swift in Sources */,
 				2A0DA3A31F3CE18D005F7F21 /* ViewController.swift in Sources */,
 				2A0DA3B51F3CE3A7005F7F21 /* Weapon.swift in Sources */,
@@ -256,7 +266,9 @@
 				2A0DA3BF1F3CFB26005F7F21 /* BoutListViewController.swift in Sources */,
 				2A0DA3BB1F3CF4B4005F7F21 /* LoginViewController.swift in Sources */,
 				2A0DA3B71F3CE3BF005F7F21 /* Bout.swift in Sources */,
+				2AF1E4C01F6043FF009C98B3 /* FencerProfileViewController.swift in Sources */,
 				2A0DA3B31F3CE1E0005F7F21 /* Fencer.swift in Sources */,
+				2A6B1D121F63491C005EF7EA /* OpponentProfileViewController.swift in Sources */,
 				2A0DA3C11F3D0911005F7F21 /* BoutViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

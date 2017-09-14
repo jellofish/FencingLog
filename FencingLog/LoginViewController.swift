@@ -20,6 +20,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
+    @IBOutlet weak var rememberMe: UISwitch!
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let validator = Validator()
@@ -36,6 +38,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         validator.registerField(userPassword, errorLabel: passwordErrorLabel, rules: [RequiredRule(), MinLengthRule(length: 5)])
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        userName.becomeFirstResponder()
+        
+        if let savedName = UserDefaults.standard.string(forKey: "userName") {
+            if !savedName.isEmpty {
+                userName?.text = savedName
+                rememberMe.isOn = true
+                userPassword.becomeFirstResponder()
+            } else {
+                userName?.text = ""
+                userPassword?.text = ""
+            }
+        } else {
+            rememberMe.isOn = false
+            userName?.text = ""
+            userPassword?.text = ""
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -50,7 +73,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 if error != nil {
                     let alert = UIAlertController(title: "Sorry...", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-                        // OK button tapped
                     }))
                     
                     self.present(alert, animated: true, completion: nil)
@@ -58,7 +80,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                //self.addDefaultData()
+                if self.rememberMe.isOn {
+                    UserDefaults.standard.set(userName, forKey: "userName")
+                } else {
+                    UserDefaults.standard.set("", forKey: "userName")
+                }
                 
                 guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BoutListViewController") as? BoutListViewController else {
                     print("Could not instantiate BoutListViewController")
