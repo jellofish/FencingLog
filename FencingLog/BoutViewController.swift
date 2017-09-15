@@ -64,7 +64,12 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        forEditing = thisBout == nil ? true : false
+        if thisBout == nil || saveEnabled == true {
+            forEditing = true
+        } else {
+            forEditing = false
+        }
+        
         configureFieldsForEditState()
 
         ref = Database.database().reference()
@@ -90,7 +95,10 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
     func readValues() {
         if let thisBout = thisBout {
             locationTextField?.text = thisBout.location
-            dateTextButton.setTitle(myFormatter.string(from: thisBout.dateTime ?? Date()), for: UIControlState.normal)
+            
+            let dateString = myFormatter.string(from: thisBout.dateTime ?? Date())
+            dateTextButton.setTitle(forEditing ? "Select Date" : dateString, for: UIControlState.normal)
+
             switch thisBout.weapon {
             case .epee:
                 weaponSegmentedControl.selectedSegmentIndex = 0
@@ -102,7 +110,11 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
                 weaponSegmentedControl.selectedSegmentIndex = 3
             }
             
-            if let opponent = findFencer(thisBout.opponents.1) {
+            if opponentId == nil {
+                opponentId = thisBout.opponents.1
+            }
+            
+            if let opponent = findFencer(opponentId!) {
                 let nameString = opponent.displayName()
                 opponentTextField?.text = nameString
                 opponentButton.setTitle(nameString, for: UIControlState.normal)
@@ -149,6 +161,7 @@ class BoutViewController: UIViewController, UITextFieldDelegate, ValidationDeleg
         scoreLeftTextField.isEnabled = forEditing
         scoreRightTextField.isEnabled = forEditing
         winnerSwitchControl.isEnabled = forEditing
+        dateTextButton.isEnabled = forEditing
         
         saveButton.isEnabled = saveEnabled
         saveButton.isHidden = !forEditing
@@ -282,6 +295,12 @@ extension BoutViewController {
     @IBAction func didTapDate(_ sender: Any) {
         let showDatePicker = dateTimePicker.isHidden == true
         
+        if showDatePicker == true {
+            dateTextButton.setTitle("Save Date", for: .normal)
+        } else {
+            dateTextButton.setTitle(boutDateTime, for: .normal)
+        }
+        
         let transform = showDatePicker ? CGAffineTransform(translationX: 0, y: 195) : CGAffineTransform.identity
         
         UIView.animate(withDuration: 0.25, animations: {
@@ -371,6 +390,7 @@ extension BoutViewController {
         let fencerName = fencer.displayName()
         opponentTextField?.text = fencerName
         opponentButton.setTitle(fencerName, for: .normal)
+        saveEnabled = true
     }
 }
 
